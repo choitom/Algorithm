@@ -10,9 +10,9 @@
 public class MoveZeros{
 	public static void main(String[] args){
 		int[] arr = new int[]{2,4,0,56,0,12,66,43,0,0,9,73};
-		print(arr);
+		printArr(arr);
 		arr = moveZeros(arr);
-		print(arr);
+		printArr(arr);
 	}
 	
 	/**
