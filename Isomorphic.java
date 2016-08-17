@@ -10,42 +10,51 @@
 import java.util.*;
 
 public class Isomorphic{
+	
 	public static void main(String[] args){
-		String s1 = "abcdefg";
-		String s2 = "qwertyu";
-		boolean iso = isIsomorphic(s1, s2);
-		System.out.println(iso);
+		String s1 = "boo";
+		String[] strs = new String[]{"foo", "baa", "bar", "aAA", "lol"};
+		for(int i = 0; i < strs.length; i++){
+			System.out.println(isIsomorphic(s1, strs[i]));
+		}
 	}
 	
-	public static boolean isIsomorphic(String s1, String s2){
-		if(s1 == null || s2 == null){
+	public static boolean isIsomorphic(String pattern, String match){
+		// see if inputs are null
+		if(pattern == null || match == null){
+			return false;
+		}
+		// compare lengths
+		if(pattern.length() != match.length()){
 			return false;
 		}
 		
-		if(s1.length() != s2.length()){
-			return false;
-		}
-		
+		/**
+			Initialize a hash map and store patten-match pair for each character
+			Return false if
+				- patten already exists, but has a different match for its value
+				- match already exists, then it has different pattern for its key
+		*/
 		HashMap<Character, Character> map = new HashMap<Character, Character>();
-		
-		// for each character
-		for(int i = 0; i < s1.length(); i++){
-			char c1 = s1.charAt(i); // key
-			char c2 = s2.charAt(i); // value
+		int i;
+		char key;
+		char value;
+		for(i = 0; i < pattern.length(); i++){
+			key = pattern.charAt(i);
+			value = match.charAt(i);
 			
-			// key already exists i.e. (c1, c2) pair mapped
-			if(map.containsKey(c1)){
-				if(map.get(c1) != c2){
+			/** patten exists -> check for its value */
+			if(map.containsKey(key)){
+				if(map.get(key) != value){
 					return false;
 				}
 			}
-			// key does not exist i.e. (c1, c2) pair does not exist
+			/** pattern not exist -> see if the value exists */
 			else{
-				// if c2 is mapped with other key
-				if(map.containsValue(c2)){
+				if(map.containsValue(value)){
 					return false;
 				}
-				map.put(c1, c2);
+				map.put(key, value);
 			}
 		}
 		return true;

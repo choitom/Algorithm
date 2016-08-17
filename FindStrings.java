@@ -14,11 +14,14 @@
 import java.util.Scanner;
 
 public class FindStrings{
+	public static int count = 0;
+	
 	public static void main(String[] args){
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter the length of a string: ");
 		int length = scan.nextInt();
 		findStrings(length, "", 0, " ");
+		System.out.println(count);
 	}
 	
 	/**
@@ -32,7 +35,7 @@ public class FindStrings{
 	*/
 	public static void findStrings(int length, String s, int numB, String cPattern){
 		if(length == 0){
-			System.out.println(s);
+			count++;
 		}else{
 			int charIndex = cPattern.length()-1;
 			if(charIndex < 0){
