@@ -29,6 +29,11 @@
 		And I want the maximum value among those two possibilities
 		=>	OPT(n, w_n) = max(OPT(n-1, W), OPT(n-1, W-w_n) + w_n)
 			but, if w_n > W, OPT(n, w_n) = OPT(n-1, W)
+	Runtime
+		The runtime of Knapsack problem is proportional to the
+		number of indices in the knapsack. Suppose we are given
+		the max capacity of W and N items. Then, the total number of
+		indices in the 2-D array is W*N. Hence, runtime = O(WN).
 */
 
 import java.io.*;
