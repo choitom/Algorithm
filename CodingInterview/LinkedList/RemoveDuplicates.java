@@ -66,23 +66,23 @@ public class RemoveDuplicates{
 	}
 	
 	/** remove an item from the list */
-	public Node remove(int data){
+	public int remove(int data){
 		return remove(root, null, data);
 	}
 	
-	private Node remove(Node n, Node prev, int data){
+	private int remove(Node n, Node prev, int data){
 		if(n == null){
 			System.err.println("The item to remove doesn't exist");
-			return null;
+			return -1;
 		}else if(n.data == data){
 			size--;
 			if(n == root){
 				Node ret = root;
 				root = root.next;
-				return ret;
+				return ret.data;
 			}else{
 				prev.next = n.next;
-				return n;
+				return n.data;
 			}
 		}else{
 			return remove(n.next, n, data);
@@ -126,6 +126,8 @@ public class RemoveDuplicates{
 		}
 		System.out.println(lst.size());
 		lst.removeDuplicates();
+		lst.print();
+		System.out.println(lst.remove(5));
 		lst.print();
 	}
 }
