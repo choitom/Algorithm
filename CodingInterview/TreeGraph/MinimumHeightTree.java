@@ -59,7 +59,7 @@ public class MinimumHeightTree{
 	// recursively find the node to delete
 	private Node remove(Node node, int data){
 		if(node == null){
-			System.err.println("The item to remove doesn't exist in the tree");
+			System.err.println("The item to remove doesn't exist in the tree: " + data);
 			return null;
 		}
 		// search right
@@ -77,7 +77,7 @@ public class MinimumHeightTree{
 				node.data = leftRightmost(node.left);
 				node.left = remove(node.left, data);
 			}else{
-				return (node.left != null) ? node.left : node.right;
+				return (node.left != null)? node.left : node.right;
 			}
 		}
 		return balance(node);
@@ -111,29 +111,31 @@ public class MinimumHeightTree{
 	
 	// balances the height of the tree
 	private Node balance(Node node){
-		// left imbalance
-		if(height(node.left) - height(node.right) > 1){
-			// rr rotation
-			if(height(node.left.left) >= height(node.left.right)){
-				node = rightRightRotation(node);
+		if(node != null){
+			// left imbalance
+			if(height(node.left) - height(node.right) > 1){
+				// rr rotation
+				if(height(node.left.left) >= height(node.left.right)){
+					node = rightRightRotation(node);
+				}
+				// lr rotation
+				else{
+					node = leftRightRotation(node);
+				}
 			}
-			// lr rotation
-			else{
-				node = leftRightRotation(node);
+			// right imbalance
+			else if(height(node.right) - height(node.left) > 1){
+				// ll rotation
+				if(height(node.right.right) >= height(node.right.left)){
+					node = leftLeftRotation(node);
+				}
+				// rl rotation
+				else{
+					node = rightLeftRotation(node);
+				}
 			}
+			node.height = max(height(node.left), height(node.right)) + 1;				
 		}
-		// right imbalance
-		else if(height(node.right) - height(node.left) > 1){
-			// ll rotation
-			if(height(node.right.right) >= height(node.right.left)){
-				node = leftLeftRotation(node);
-			}
-			// rl rotation
-			else{
-				node = rightLeftRotation(node);
-			}
-		}
-		node.height = max(height(node.left), height(node.right)) + 1;
 		return node;
 	}
 
