@@ -41,9 +41,14 @@ public class BSTSequences{
 		return sequences;
 	}
 	
+	/**
+	* Find all permutations of the nodes for each level
+	*/
 	private void findAllPermutations(ArrayList<LinkedList<Integer>> separated){
 		// stores all permutations for each height
 		ArrayList<ArrayList<ArrayList<Integer>>> perms = new ArrayList<ArrayList<ArrayList<Integer>>>();
+		
+		// for each level, find all permutations
 		for(int i = 0; i < separated.size(); i++){
 			ArrayList<ArrayList<Integer>> p = findPerm(separated.get(i));
 			perms.add(p);
@@ -51,6 +56,9 @@ public class BSTSequences{
 		findResults(perms, 0, "");
 	}
 	
+	/**
+	* Find all combinations of permutations for every level in the tree
+	*/
 	private void findResults(ArrayList<ArrayList<ArrayList<Integer>>> perms, int index, String partial){
 		if(index == perms.size()){
 			sequences.add(partial);
@@ -66,20 +74,42 @@ public class BSTSequences{
 		}
 	}
 	
+	/**
+	* Insert each number of the list into each different position
+	*/
 	private ArrayList<ArrayList<Integer>> findPerm(LinkedList<Integer> lst){
+		// the list of each sequence
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		
+		// start out with an empty sequence
 		result.add(new ArrayList<Integer>());
 		
+		// for each number in the list
 		for(int i = 0; i < lst.size(); i++){
+			
+			// storage for updating the new sequences
 			ArrayList<ArrayList<Integer>> current = new ArrayList<ArrayList<Integer>>();
+			
+			// for each sequence
 			for(ArrayList<Integer> I : result){
+				
+				// for each position in the sequence
 				for(int j = 0; j < I.size() + 1; j++){
+					
+					// insert the number
 					I.add(j, lst.get(i));
+					
+					// deep copy the result
 					ArrayList<Integer> temp = new ArrayList<Integer>(I);
+					
+					// store the result
 					current.add(temp);
+					
+					// revert back and repeat the same process for the next index
 					I.remove(j);
 				}
 			}
+			// reset the list of sequences
 			result = new ArrayList<ArrayList<Integer>>(current);
 		}
 		return result;
@@ -110,15 +140,6 @@ public class BSTSequences{
 			}
 			lst.add(listOfDepths.get(i));
 		}
-		
-		for(int i = 0; i < separated.size(); i++){
-			LinkedList<Integer> lst = separated.get(i);
-			for(int j : lst){
-				System.out.print(j + " ");
-			}
-			System.out.println();
-		}
-		
 		return separated;
 	}
 	
@@ -179,11 +200,11 @@ public class BSTSequences{
 	
 	public static void main(String[] args){
 		BSTSequences bst = new BSTSequences();
-		int[] arr = new int[]{10, 5, 15, 4, 6, 14, 16};
+		int[] arr = new int[]{10,5,15,4,6,14,16};
 		for(int i = 0; i < arr.length; i++){
 			bst.insert(arr[i]);
 		}
-		bst.preorder();
+		//bst.preorder();
 		ArrayList<String> bstSequences = bst.findSequences();
 		for(int i = 0; i < bstSequences.size(); i++){
 			System.out.println(i + ": " + bstSequences.get(i));
