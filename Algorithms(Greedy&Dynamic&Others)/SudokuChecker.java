@@ -107,7 +107,7 @@ public class SudokuChecker{
 	
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("sudoku_output.txt", "UTF-8");
-		File file = new File("sudokuInput.txt");
+		File file = new File("sudoku_input.txt");
 		Scanner scan = new Scanner(file);
 		int testCases = scan.nextInt();
 		
